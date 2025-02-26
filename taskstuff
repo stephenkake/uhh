@@ -1,0 +1,84 @@
+task_list = []
+completed_task_list = []
+#Defining functions fess make i no confuse
+def welcome_message():
+    print ("wlecome to To Do List manager")
+def functions():
+    program_functions = ["1. Add task",
+                      "2. View tasks",
+                      "3. Mark task as completed",
+                      "4. Delete a task",
+                      "5. Exit"]
+    for program in program_functions:
+        print (program)
+        
+def add_task(task_list,task): 
+    if task:
+        task_list.append(task)
+        print (task, "succesfully added to list")
+    else:
+        print (task, "cannot be empty")
+
+def view_task(task_list):
+    if not task_list:
+        print ("there are no tasks")
+    else:
+        for index, task in enumerate(task_list):
+            print(f"{index}: {task}")
+def mark_as_complete(task_list,completed_task_list):
+    print("Which task would you like to mark as complete")
+    view_task(task_list)
+    mrkcmlt = int(input ("input the number of the task you want to complete"))
+    task_completed = task_list[mrkcmlt]
+    completed_task_list.append(task_completed)
+    print (task_completed, "marked as completed")
+
+def delete_task(task_list,completed_task_list):
+    view_task(task_list)
+    dlt = int(input ("input the number of the task you want to delete"))
+    task_to_delete = task_list [dlt] 
+    if task_to_delete in task_list:
+        del task_list [dlt]
+        print ("task succesfuly deleted")
+        print (task_list)
+    elif task_to_delete in task_list and task_to_delete in completed_task_list:
+        for tsklst in [completed_task_list,task_list]:
+            if task_to_delete in tsklst:
+                 tsklst.remove(task_to_delete)
+        print ("task succesfuly deleted")
+        for task in task_list: 
+         print (task)
+
+    else:
+        print("please input the number again")
+        view_task()
+#main program T-T
+if __name__ == "__main__":
+
+        
+    while True:
+        try:
+            welcome_message()
+            functions ()
+            option = int(input("please input option (1-5)"))
+            if option == 1:
+                task = input("Input new task ")
+                add_task(task_list,task)
+            elif option == 2:
+                def create_task_dict(task_list, completed_task_list):
+                    task_list_dict = [{'Task': task, 'Completed': task in completed_task_list} for task in task_list]
+                    return task_list_dict
+                tasklist = create_task_dict(task_list, completed_task_list)
+                print (tasklist)
+            elif option == 3:
+                mark_as_complete(task_list,completed_task_list)
+            elif option == 4:
+                delete_task(task_list,completed_task_list)
+            elif option == 5:
+                print ("goodbye")
+                break
+            else:
+                print("Invalid choice. Please select a number between 1 and 5.")
+        
+        except ValueError:
+            print("Invalid input. Please enter a number.")
