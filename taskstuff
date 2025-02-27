@@ -30,8 +30,11 @@ def mark_as_complete(task_list,completed_task_list):
     view_task(task_list)
     mrkcmlt = int(input ("input the number of the task you want to complete"))
     task_completed = task_list[mrkcmlt]
-    completed_task_list.append(task_completed)
-    print (task_completed, "marked as completed")
+    if task_completed in completed_task_list:
+        print (task_completed, "has already been marked as completed")
+    else:
+        completed_task_list.append(task_completed)
+        print (task_completed, "marked as completed")
 
 def delete_task(task_list,completed_task_list):
     view_task(task_list)
